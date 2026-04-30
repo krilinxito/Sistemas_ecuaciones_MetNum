@@ -1297,14 +1297,18 @@ elif pag == '4. Comparacion y Analisis':
     st.markdown('---')
     st.subheader('Informe PDF')
     if 'tabla' in st.session_state:
-        with st.spinner('Generando PDF...'):
-            pdf_bytes = _generar_pdf(st.session_state['tabla'])
-        st.download_button(
-            label='Descargar Informe PDF',
-            data=pdf_bytes,
-            file_name='informe_metodos_co2.pdf',
-            mime='application/pdf',
-        )
+        if 'pdf_bytes' not in st.session_state:
+            if st.button('Generar Informe PDF'):
+                with st.spinner('Generando PDF...'):
+                    st.session_state['pdf_bytes'] = _generar_pdf(st.session_state['tabla'])
+                st.rerun()
+        if 'pdf_bytes' in st.session_state:
+            st.download_button(
+                label='Descargar Informe PDF',
+                data=st.session_state['pdf_bytes'],
+                file_name='informe_metodos_co2.pdf',
+                mime='application/pdf',
+            )
     else:
         st.info("Primero pulsa 'Calcular tabla completa' para generar los datos del informe.")
 
