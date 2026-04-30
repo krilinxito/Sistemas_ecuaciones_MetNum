@@ -1,0 +1,13 @@
+name: sistemas-ecuaciones
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - plotly
+  - pip
+  - pip:
+    - streamlit
